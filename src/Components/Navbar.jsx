@@ -5,7 +5,7 @@ import {Link, NavLink} from 'react-router-dom';
 import "./Navbar.css"
 
 export const Navbar = () => {
- const[menuOpen,setMenuOpen] = useState(false)
+ const[menuOpen,setMenuOpen] = useState(false);
     return <nav>
           <Link className='title' to="/">#CarRental</Link>
           <div className="menu" onClick={() => {
