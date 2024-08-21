@@ -23,6 +23,9 @@ export const Navbar = () => {
         <li>
           <NavLink to="/vans">Vans</NavLink>
         </li>
+        <li>
+          <NavLink to="/signin"><i class="fa-solid fa-user"></i></NavLink>
+        </li>
       </ul>
     </nav>
   );

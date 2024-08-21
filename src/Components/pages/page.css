@@ -74,6 +74,7 @@ footer{
     font-size: 15px;
     
 }.tabs {
+  margin-top: 30px;
     margin-bottom: 20px;
     margin-left: 20px;
   }
@@ -86,6 +87,7 @@ footer{
     cursor: pointer;
     font-size: 16px;
     border-radius: 10px;
+    transition: ease-in-out 1.5s;
   }
   
   .tabs button.active {
@@ -171,7 +173,11 @@ footer{
     color: #FFEAD0;
     font-size: 15px;
     cursor: pointer;
+    margin: 0px;
   }
+  button .car-type-button{
+    margin: 0px;
+  } 
   
   .car-type-button.luxury {
     background-color: #161616;
@@ -188,6 +194,126 @@ footer{
   .car-type-button:hover {
     opacity: 0.8;
   }
+
+  /* SIGN IN */
+
+  .signin-container, .home-container, .host-container {
+    max-width: 400px;
+    margin: auto;
+    margin-top: 50px;
+    padding: 20px;
+    background-color: #FFF7ED;
+    border-radius: 10px;
+    border: 1px solid #252525;
+  }
+  
+  form div {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+  }
+  
+ .bttn {
+    padding: 10px 15px;
+    background-color: #FF8C38;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    transition: ease-in-out 1.5s;
+  }
+  
+  button:hover {
+    background-color: #FF8C38;
+    transition: ease-in-out 1.5s;
+
+  }
+
+  .bttn:hover {
+    background-color: #252525;
+    transition: ease-in-out 1.5s;
+  }
+
+  /* HOST */
+.fa{
+  color: #FF8C38;
+}
+  .dash1{
+    background-color: #FFEAD0;
+    width: 100%; 
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;   
+  }
+
+.dash2{
+  background-color: #FFDDB2;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center; 
+}
+  .pad{
+     padding: 20px;
+  }
+
+  .dash3{
+    background-color: #FFF7ED;
+  }
+
+  /* src/Host.css */
+.dash1, .dash2, .dash3 {
+  margin-bottom: 5px;
+}
+
+.dash1 .pad, .dash2 .pad {
+  margin-bottom: 10px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.dash3 li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  background-color: white;
+  border-radius: 5px;
+  padding: 20px;
+}
+li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;  
+  padding: 20px;
+}
+
+img {
+  margin-right: 10px;
+  border-radius: 4px;
+}
+
+button {
+  margin-left: auto;
+}
+
+ 
+
+
+ 
   
   
  

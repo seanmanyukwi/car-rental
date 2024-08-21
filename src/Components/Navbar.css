@@ -10,6 +10,7 @@ nav {
     background-color: #FFF7ED;
     position: sticky;
     top: 0;
+    box-shadow: 1px 1px 1px 1px rgb(59, 59, 59);
 }
 
 nav .title {
@@ -94,6 +95,8 @@ nav .menu span {
     nav ul li a {
         margin: 0.2rem 0.5rem;
     }
+
+   
 
 
 }
