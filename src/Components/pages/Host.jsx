@@ -76,7 +76,73 @@ const Reviews = () => {
   );
 };
 
-export default Reviews;
+const VanDashboard = ({ vans }) => {
+  const [selectedVan, setSelectedVan] = useState(null);
+  const [activeTab, setActiveTab] = useState('vans');
+
+  const handleVanClick = (van) => {
+    setSelectedVan(van);
+    setActiveTab('details');
+  };
+
+  const handleBack = () => {
+    setSelectedVan(null);
+    setActiveTab('vans');
+  };
+
+  const renderTabContent = () => {
+    if (activeTab === 'vans') {
+      return (
+        <div>
+          <h2 className="pad">Your Listed Vans</h2>
+          <ul className="pad">
+            {vans.map((van) => (
+              <li key={van.name} onClick={() => handleVanClick(van)}>
+                <img src={van.image} alt={van.name} style={{ width: '100px', height: 'auto' }} />
+                <h3>{van.name}</h3>
+                <p>{van.price}</p>
+              </li>
+            ))}
+          </ul>
+          <footer>
+            <p>&copy; 2022. # VANLIFE</p>
+          </footer>
+        </div>
+      );
+    }
+
+    if (selectedVan) {
+      return (
+        <div className='pad'>
+          <button onClick={handleBack}>Back to Vans</button>
+          <div>
+            <h2>{selectedVan.name}</h2>
+            <img src={selectedVan.image} alt={selectedVan.name} style={{ width: '300px', height: 'auto' }} />
+            <div className='tab'>
+              <button onClick={() => setActiveTab('pricing')}>Pricing</button>
+              <button onClick={() => setActiveTab('details')}>Details</button>
+              <button onClick={() => setActiveTab('photos')}>Photos</button>
+            </div>
+            {activeTab === 'pricing' && <div><h3>Pricing</h3><p>{selectedVan.price}</p></div>}
+            {activeTab === 'details' && <div><h3>Details</h3><p>{selectedVan.details}</p></div>}
+            {activeTab === 'photos' && (
+              <div>
+                <h3>Photos</h3>
+                {selectedVan.photos.map((photo, index) => (
+                  <img key={index} src={photo} alt={`Photo ${index + 1}`} style={{ width: '100px', height: 'auto' }} />
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    return null;
+  };
+
+  return <div>{renderTabContent()}</div>;
+};
 
 export const Host = () => {
   const [activeTab, setActiveTab] = useState('Dashboard');
@@ -89,17 +155,23 @@ export const Host = () => {
     {
       name: 'Modest Explorer',
       price: '$60/day',
-      image: img1 
+      image: img1,
+      details: 'A great van for exploring.',
+      photos: [img1, img4, img6]
     },
     {
       name: 'Beach Bum',
       price: '$80/day',
-      image: img4 
+      image: img4,
+      details: 'Perfect for beach trips.',
+      photos: [img1, img4, img6]
     },
     {
       name: 'Green Wonder',
       price: '$70/day',
-      image: img6 
+      image: img6,
+      details: 'Ideal for nature adventures.',
+      photos: [img1, img4, img6]
     }
   ];
 
@@ -134,29 +206,9 @@ export const Host = () => {
           </div>
         );
       case 'Reviews':
-        return (
-          <div>
-            <Reviews />
-          </div>
-        );
+        return <Reviews />;
       case 'Van':
-        return (
-          <div>
-            <h2 className="pad">Your Listed Vans</h2>
-            <ul className="pad">
-              {vans.map((van) => (
-                <li key={van.name}>
-                  <img src={van.image} alt={van.name} style={{ width: '100px', height: 'auto' }} />
-                  <h3>{van.name}</h3>
-                  <p>{van.price}</p>
-                </li>
-              ))}
-            </ul>
-            <footer>
-              <p>&copy; 2022. # VANLIFE</p>
-            </footer>
-          </div>
-        );
+        return <VanDashboard vans={vans} />;
       case 'Dashboard':
         return (
           <div>
@@ -199,7 +251,7 @@ export const Host = () => {
                       <p>{van.price}</p>
                     </div>
                     <div>
-                      <button className="edi">Edit</button>
+                      <button className="edi" onClick={() => setActiveTab('Van')}>Edit</button>
                     </div>
                   </li>
                 ))}
@@ -254,3 +306,5 @@ export const Host = () => {
     </div>
   );
 };
+
+

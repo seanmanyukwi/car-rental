@@ -73,7 +73,8 @@ footer{
     height: 40px;
     font-size: 15px;
     
-}.tabs {
+}
+.tabs {
   margin-top: 30px;
     margin-bottom: 20px;
     margin-left: 20px;
@@ -91,6 +92,28 @@ footer{
   }
   
   .tabs button.active {
+    background-color: #000000;
+    color: #FFEAD0;
+  }
+
+.tab {
+  margin-top: 30px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+  }
+  
+  .tab button {
+    padding: 5px 10px;
+    margin: 0 5px;
+    border: none;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 10px;
+    transition: ease-in-out 1.5s;
+  }
+  
+  .tab button.active {
     background-color: #000000;
     color: #FFEAD0;
   }
@@ -537,6 +560,10 @@ img {
   height: 10px;
   border-radius: 5px;
 }
+
+
+
+/* VANXX */
 
 
 
