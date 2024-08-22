@@ -10,8 +10,14 @@ nav {
     background-color: #FFF7ED;
     position: sticky;
     top: 0;
-    box-shadow: 1px 1px 1px 1px rgb(59, 59, 59);
+    z-index: 100;
+      transition: box-shadow 0.3s ease;
 }
+
+nav.scrolled {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.664); /* Shadow on scroll */
+}
+
 
 nav .title {
     font-size: 1.8rem;

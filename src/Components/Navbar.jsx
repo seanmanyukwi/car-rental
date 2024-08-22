@@ -5,12 +5,32 @@ import "./Navbar.css";
 export const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const handleMenuClick = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+  const handleMenuItemClick = () => {
+    setMenuOpen(false); // Close the menu when an item is clicked
+  };
+
+
+  document.addEventListener('scroll', function() {
+    const navbar = document.querySelector('nav');
+    if (window.scrollY > 0) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+});
+
   return (
-    <nav>
-      <Link className='title' to="/">#CarRental</Link>
+    <nav className='header'>
+      <Link className='title' to="/" onClick={handleMenuItemClick}>
+        #CarRental
+      </Link>
       <div 
         className="menu" 
-        onClick={() => setMenuOpen(!menuOpen)}
+        onClick={handleMenuClick}
       >
         <span></span>
         <span></span>
@@ -18,13 +38,13 @@ export const Navbar = () => {
       </div>
       <ul className={menuOpen ? "open" : ""}>
         <li>
-          <NavLink to="/about">About</NavLink>
+          <NavLink to="/about" onClick={handleMenuItemClick}>About</NavLink>
         </li>
         <li>
-          <NavLink to="/vans">Vans</NavLink>
+          <NavLink to="/vans" onClick={handleMenuItemClick}>Vans</NavLink>
         </li>
         <li>
-          <NavLink to="/signin"><i class="fa-solid fa-user"></i></NavLink>
+          <NavLink to="/signin" onClick={handleMenuItemClick}><i className="fa-solid fa-user"></i></NavLink>
         </li>
       </ul>
     </nav>

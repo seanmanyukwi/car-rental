@@ -1,8 +1,82 @@
 import React, { useState } from 'react';
-import './Host'; // Optional for styling
+import './page.css'; // Optional for styling
 import img1 from "../images/Rectangle-154.png";
 import img4 from "../images/Rectangle-163.png";
 import img6 from "../images/Rectangle-156.png";
+import CustomBarChart from './CustomBarChart'; // Import the chart component
+
+const Reviews = () => {
+  return (
+    <div className="rating-bar pad">
+      <h2>5.0 Overall Rating</h2>
+      <div className="rating-stars">
+        <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
+        <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
+        <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
+        <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
+        <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
+      </div>
+      <div className="rating-distribution">
+        <div className="rating-item">
+          <p>5 stars</p>
+          <div className="rating-bar-fill" style={{ width: '100%', backgroundColor: '#FF8C38' }}></div>
+        </div>
+        <div className="rating-item">
+          <p>4 stars</p>
+          <div className="rating-bar-fill" style={{ width: '75%', backgroundColor: '#FF8C38' }}></div>
+        </div>
+        <div className="rating-item">
+          <p>3 stars</p>
+          <div className="rating-bar-fill" style={{ width: '50%', backgroundColor: '#FF8C38' }}></div>
+        </div>
+        <div className="rating-item">
+          <p>2 stars</p>
+          <div className="rating-bar-fill" style={{ width: '25%', backgroundColor: '#FF8C38' }}></div>
+        </div>
+        <div className="rating-item">
+          <p>1 star</p>
+          <div className="rating-bar-fill" style={{ width: '0%', backgroundColor: '#FF8C38' }}></div>
+        </div>
+      </div>
+      
+      <div className="review-container">
+        <h2>Your Reviews (2)</h2>
+        <div className="review">
+          <div className="review-header">
+            <h4>Elliot December 1, 2022</h4>
+            <div className="rating">
+              <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
+              <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
+              <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
+              <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
+              <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
+            </div>
+          </div>
+          <p className="review-text">
+            The Beach Bum is such an awesome van! Such a comfortable trip. We had it for 2 weeks and there was not a single issue. Super clean when we picked it up, and the host is very accommodating and understanding. Highly recommend!
+          </p>
+        </div>
+        <div className="review">
+          <div className="review-header">
+            <h4>Sandy November 23, 2022</h4>
+            <div className="rating">
+              <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
+              <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
+              <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
+              <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
+              <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
+            </div>
+          </div>
+          <p className="review-text">
+            This is our third time using the Modest Explorer for our travels, and we love it! No complaints, absolutely perfect!
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Reviews;
 
 export const Host = () => {
   const [activeTab, setActiveTab] = useState('Dashboard');
@@ -11,22 +85,21 @@ export const Host = () => {
     setActiveTab('Income');
   };
 
-  // Define vans data outside of JSX for reuse
   const vans = [
     {
       name: 'Modest Explorer',
       price: '$60/day',
-      image: img1 // Replace with actual image URL
+      image: img1 
     },
     {
       name: 'Beach Bum',
       price: '$80/day',
-      image: img4 // Replace with actual image URL
+      image: img4 
     },
     {
       name: 'Green Wonder',
       price: '$70/day',
-      image: img6 // Replace with actual image URL
+      image: img6 
     }
   ];
 
@@ -34,23 +107,43 @@ export const Host = () => {
     switch (activeTab) {
       case 'Income':
         return (
-          <div>
-            <h2>Income</h2>
-            <p>This is the Income tab content.</p>
+          <div className="income-container">
+            <div className="income-summary">
+              <h1>Income</h1>
+              <h2>Last 30 days: <span>$2,796</span></h2>
+              <p>Details of your earnings over the past 6 months.</p>
+            </div>
+            <CustomBarChart />
+            <div className="income-details">
+              <h3>Your Transactions (Last 30 days)</h3>
+              <ul>
+                <li>
+                  <span><h3>$750</h3></span>
+                  <span>4/12/22</span>
+                </li>
+                <li>
+                  <span><h3>$930</h3></span>
+                  <span>15/11/22</span>
+                </li>
+                <li>
+                  <span><h3>$490</h3></span>
+                  <span>23/10/22</span>
+                </li>
+              </ul>
+            </div>
           </div>
         );
       case 'Reviews':
         return (
           <div>
-            <h2>Reviews</h2>
-            <p>This is the Reviews tab content.</p>
+            <Reviews />
           </div>
         );
       case 'Van':
         return (
           <div>
-            <h2 className='pad'>Your Listed Vans</h2>
-            <ul className='pad'>
+            <h2 className="pad">Your Listed Vans</h2>
+            <ul className="pad">
               {vans.map((van) => (
                 <li key={van.name}>
                   <img src={van.image} alt={van.name} style={{ width: '100px', height: 'auto' }} />
@@ -60,11 +153,8 @@ export const Host = () => {
               ))}
             </ul>
             <footer>
-        <p>&copy; 2022. # VANLIFE</p>
-      </footer> 
-
-
-
+              <p>&copy; 2022. # VANLIFE</p>
+            </footer>
           </div>
         );
       case 'Dashboard':
@@ -88,7 +178,6 @@ export const Host = () => {
                 <h3>Review score</h3>
                 <p className="fa"><i className="fa-solid fa-star"></i> </p>4.5/5
               </div>
-
               <div className="pad">
                 <p onClick={handleDetailsClick} style={{ cursor: 'pointer', color: 'black' }}>
                   Details
@@ -96,26 +185,29 @@ export const Host = () => {
               </div>
             </div>
 
-            {/* Add the Vans List here */}
             <div className="dash3">
-              <h2 className='pad'>Your Listed Vans</h2>
-              <ul className='pad'>
+              <h2 className="pad">Your Listed Vans</h2>
+              <ul className="pad">
                 {vans.map((van) => (
-                  <li key={van.name}>
-                    <img src={van.image} alt={van.name} style={{ width: '100px', height: 'auto' }} />
-                    <h3>{van.name}</h3>
-                    <p>{van.price}</p>
-                    <button>Edit</button>
+                  <li key={van.name} className="ten">
+                    <div className="nine">
+                      <div>
+                        <img src={van.image} alt={van.name} style={{ width: '100px', height: 'auto' }} />
+                      </div>
+                      <div></div>
+                      <h3>{van.name}</h3>
+                      <p>{van.price}</p>
+                    </div>
+                    <div>
+                      <button className="edi">Edit</button>
+                    </div>
                   </li>
                 ))}
               </ul>
             </div>
             <footer>
-        <p>&copy; 2022. # VANLIFE</p>
-      </footer> 
-
-
-
+              <p>&copy; 2022. # VANLIFE</p>
+            </footer>
           </div>
         );
       default:
