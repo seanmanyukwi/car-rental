@@ -43,7 +43,8 @@ const Reviews = () => {
         <h2>Your Reviews (2)</h2>
         <div className="review">
           <div className="review-header">
-            <h4>Elliot December 1, 2022</h4>
+            <h4>Elliot</h4>
+            <h5> December 1, 2022</h5>
             <div className="rating">
               <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
               <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
@@ -58,7 +59,8 @@ const Reviews = () => {
         </div>
         <div className="review">
           <div className="review-header">
-            <h4>Sandy November 23, 2022</h4>
+            <h4>Sandy </h4>
+            <h5>November 23, 2022</h5>
             <div className="rating">
               <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
               <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
@@ -99,8 +101,11 @@ const VanDashboard = ({ vans }) => {
             {vans.map((van) => (
               <li key={van.name} onClick={() => handleVanClick(van)}>
                 <img src={van.image} alt={van.name} style={{ width: '100px', height: 'auto' }} />
-                <h3>{van.name}</h3>
+                <div className="inf">
+                    <h3>{van.name}</h3>
                 <p>{van.price}</p>
+                </div>
+              
               </li>
             ))}
           </ul>
@@ -246,9 +251,11 @@ export const Host = () => {
                       <div>
                         <img src={van.image} alt={van.name} style={{ width: '100px', height: 'auto' }} />
                       </div>
-                      <div></div>
-                      <h3>{van.name}</h3>
+                      <div className='inf'>
+                         <h3>{van.name}</h3>
                       <p>{van.price}</p>
+                      </div>
+                     
                     </div>
                     <div>
                       <button className="edi" onClick={() => setActiveTab('Van')}>Edit</button>
