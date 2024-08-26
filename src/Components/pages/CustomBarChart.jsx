@@ -23,9 +23,9 @@ const data = [
 
 const CustomBarChart = () => {
   return (
-    <div
+    <div className='pad'
       style={{
-        width: '100%',
+        width: '85%',
         height: 400,
         backgroundColor: '#FFFAF0',
         padding: '20px',
@@ -44,7 +44,7 @@ const CustomBarChart = () => {
       >
         Income (Last 6 Months)
       </h2>
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer width="80%" height="100%">
         <BarChart data={data}>
           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e0e0e0" />
           <XAxis dataKey="name" stroke="#555" />

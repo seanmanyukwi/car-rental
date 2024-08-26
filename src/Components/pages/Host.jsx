@@ -157,21 +157,21 @@ export const Host = () => {
       price: '$60/day',
       image: img1,
       details: 'A great van for exploring.',
-      photos: [img1, img4, img6]
+      photos: [img1]
     },
     {
       name: 'Beach Bum',
       price: '$80/day',
       image: img4,
       details: 'Perfect for beach trips.',
-      photos: [img1, img4, img6]
+      photos: [img4]
     },
     {
       name: 'Green Wonder',
       price: '$70/day',
       image: img6,
       details: 'Ideal for nature adventures.',
-      photos: [img1, img4, img6]
+      photos: [img6]
     }
   ];
 
@@ -179,7 +179,7 @@ export const Host = () => {
     switch (activeTab) {
       case 'Income':
         return (
-          <div className="income-container">
+          <div className="income-container pa">
             <div className="income-summary">
               <h1>Income</h1>
               <h2>Last 30 days: <span>$2,796</span></h2>
