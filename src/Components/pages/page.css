@@ -389,6 +389,18 @@ img {
 }
 
 
+.senta{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.end{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; 
+}
+
+
 /* Add other styles as needed for buttons */
 
 /* BARCHART */
@@ -571,6 +583,34 @@ img {
   align-items: center;
   gap: 10px;
 }
+
+
+
+/* form */
+
+/* page.css */
+.error-popup {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  animation: fadeOut 0.5s ease-in-out 4.5s forwards; /* Fade out animation */
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+  }
+}
+
+
 
 
 

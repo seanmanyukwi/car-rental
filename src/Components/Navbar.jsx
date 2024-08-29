@@ -44,7 +44,7 @@ export const Navbar = () => {
           <NavLink to="/vans" onClick={handleMenuItemClick}>Vans</NavLink>
         </li>
         <li>
-          <NavLink to="/signin" onClick={handleMenuItemClick}><i className="fa-solid fa-user"></i></NavLink>
+          <NavLink to="/login" onClick={handleMenuItemClick}><i className="fa-solid fa-user"></i></NavLink>
         </li>
       </ul>
     </nav>
