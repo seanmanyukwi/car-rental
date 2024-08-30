@@ -1,9 +1,8 @@
-// SignUp.js
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { auth, db } from './firebase'; 
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore"; // Import Firestore methods
+import { doc, setDoc } from "firebase/firestore"; 
 import "../pages/page.css"; 
 
 export function SignUp() {
@@ -11,29 +10,33 @@ export function SignUp() {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [userType, setUserType] = useState('regular'); // Default to 'regular' user type
   const navigate = useNavigate();
 
-  const handleRegister = (e) => {
+  // Define the host email
+  const HOST_EMAIL = "host@example.com";  // Replace with your desired host email
+
+  const handleRegister = async (e) => {
     e.preventDefault();
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(async (userCredential) => {
-        const user = userCredential.user;
-        console.log('Registration successful:', user);
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      console.log('Registration successful:', user);
 
-        // Store user data in Firestore
-        await setDoc(doc(db, "users", user.uid), {
-          firstName,
-          lastName,
-          email,
-          userType, // Save the user type (host or regular)
-        });
+      // Determine user type based on email
+      const userType = (email === HOST_EMAIL) ? "host" : "regular";
 
-        navigate('/');
-      })
-      .catch((error) => {
-        console.error('Registration error:', error);
+      // Store user data in Firestore
+      await setDoc(doc(db, "users", user.uid), {
+        firstName,
+        lastName,
+        email,
+        userType,
       });
+
+      navigate('/');  // Redirect to home or appropriate page after signup
+    } catch (error) {
+      console.error('Registration error:', error);
+    }
   };
 
   return (
@@ -79,13 +82,6 @@ export function SignUp() {
             placeholder="Enter password"
             required
           />
-        </div>
-        <div>
-          <label>User Type:</label>
-          <select value={userType} onChange={(e) => setUserType(e.target.value)}>
-            <option value="regular">Regular User</option>
-            <option value="host">Host User</option>
-          </select>
         </div>
         <button className='bttn' type="submit">Sign Up</button>
       </form>
