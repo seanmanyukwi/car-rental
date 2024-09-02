@@ -40,7 +40,10 @@ export function Login() {
 
   return (
     <div className="signin-container">
-      <h2>Login</h2>
+      <div className='senta'>
+        <h2>Login</h2> 
+      </div>
+     
       <form onSubmit={handleSignIn}>
         <div>
           <label>Email address:</label>
@@ -64,7 +67,10 @@ export function Login() {
         </div>
         <button className='bttn' type="submit">Submit</button>
       </form>
-      <p>New user? <Link to="/register">Register Here</Link></p>
+      <div className='end'>
+         <p>New user? <Link to="/register">Register Here</Link></p>
+      </div>
+     
     </div>
   );
 }

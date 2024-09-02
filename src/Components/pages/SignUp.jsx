@@ -33,7 +33,7 @@ export function SignUp() {
         userType,
       });
 
-      navigate('/');  // Redirect to home or appropriate page after signup
+      navigate('/login');  // Redirect to login page after signup
     } catch (error) {
       console.error('Registration error:', error);
     }
@@ -41,7 +41,10 @@ export function SignUp() {
 
   return (
     <div className="signin-container">
-      <h2>Sign Up</h2>
+      <div className='senta'>
+        <h2>Sign Up</h2> 
+      </div>
+     
       <form onSubmit={handleRegister}>
         <div>
           <label>First name:</label>
@@ -83,9 +86,12 @@ export function SignUp() {
             required
           />
         </div>
-        <button className='bttn' type="submit"> <Link to="/login">Sign Up</Link></button>
+        <button className='bttn' type="submit">Sign Up</button>
       </form>
-      <p>Already registered? <Link to="/login">Login</Link></p>
+      <div>
+        <p className='end'>Already registered? <Link to="/login">Login</Link></p> 
+      </div>
+     
     </div>
   );
 }
