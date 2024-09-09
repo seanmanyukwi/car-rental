@@ -49,10 +49,17 @@ export const Vans = () => {
 
   if (selectedCar) {
     return (
-      <div className="car-details-page pad">
-        <button onClick={handleBackClick} className="back-button">Back to all Vans</button>
+      <div className="return pad">
+<button onClick={handleBackClick} className="back-button">Back to all Vans</button>
+         <div className="car-details-page ">
+             
+      <div>
+         
         <img src={selectedCar.image} alt={selectedCar.model} className="car-image-large" />
-        <h2>{selectedCar.model}</h2>
+      </div>
+
+      <div>
+         <h2>{selectedCar.model}</h2>
          {/* Car Type Button */}
         <button className={`car-type-button ${getButtonClassName(selectedCar.type)}`}>{selectedCar.type}</button>
         <p>{selectedCar.price}</p>
@@ -60,6 +67,11 @@ export const Vans = () => {
        
         <button className='bttn1' type="submit">Rent this van</button>
       </div>
+       
+       
+      </div> 
+      </div>
+    
     );
   }
 

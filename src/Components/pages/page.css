@@ -221,7 +221,8 @@ footer{
 
   .car-details-page{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
   }
 
   .car-image-large{
@@ -235,6 +236,7 @@ footer{
     padding: 5px;
     margin-bottom: 5px;
     border-radius: 10px;
+    border: none;
     
   }
 

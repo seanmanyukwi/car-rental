@@ -13,7 +13,7 @@ export function SignUp() {
   const navigate = useNavigate();
 
   // Define the host email
-  const HOST_EMAIL = "sean@gmail.com";  // Replace with your desired host email
+  const HOST_EMAIL = "host@gmail.com";  // Replace with your desired host email
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -86,7 +86,7 @@ export function SignUp() {
             required
           />
         </div>
-        <button className='bttn' type="submit">Sign Up</button>
+        <button className='bttn' type="submit">Sign Up  </button>
       </form>
       <div>
         <p className='end'>Already registered? <Link to="/login">Login</Link></p> 
