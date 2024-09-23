@@ -1,76 +1,96 @@
-// Login.js
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { auth, db } from './firebase'; 
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore"; // Import Firestore methods
-import "../pages/page.css"; 
+import { useNavigate } from 'react-router-dom';
+import { auth, db } from './firebase'; // Import Firebase auth
+import { signInWithEmailAndPassword } from 'firebase/auth'; // Import Firebase auth method
+import './page.css'; // Import the CSS file for styling
 
-export function Login() {
+export const Login = ({ setUserType }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleSignIn = (e) => {
-    e.preventDefault();
-    
-    signInWithEmailAndPassword(auth, email, password)
-      .then(async (userCredential) => {
+  const handleLogin = async () => {
+    if (!email || !password) {
+      setError('Both fields are required.');
+      setTimeout(() => setError(''), 10000); // Clear error after 10 seconds
+      return;
+    }
+
+    try {
+      // Directly check for host email and password without fetching from Firebase
+      if (email === 'sean@gmail.com' && password === 'sean2024') {
+        // Skip fetching user type and navigate directly to Host page
+        // setUserType('host'); // Set user type to host
+        navigate('/host'); // Directly navigate to Host page
+      } else {
+        // Regular login for non-host users
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
 
-        // Fetch user data from Firestore to determine user type
-        const userDoc = await getDoc(doc(db, "users", user.uid));
-
-        if (userDoc.exists()) {
-          const userData = userDoc.data();
-          
-          if (userData.userType === 'host') {
-            navigate('/host');  // Redirect to host page
-          } else {
-            navigate('/');  // Redirect to home page for regular users
+        // Fetch user type for non-host users
+        const fetchUserType = async (userId) => {
+          try {
+            const userDoc = await db.collection('users').doc(userId).get();
+            if (userDoc.exists) {
+              return userDoc.data().userType; // Assuming userType field exists
+            }
+            return 'regular';
+          } catch (error) {
+            console.error('Error fetching user type:', error);
+            return 'regular';
           }
+        };
+
+        const userType = await fetchUserType(user.uid);
+        setUserType(userType);
+
+        if (userType === 'host') {
+          navigate('/host'); // Redirect to Host page for host users
         } else {
-          console.error('No user data found!');
+          navigate('/'); // Redirect to Home page for regular users
         }
-      })
-      .catch((error) => {
-        console.error('Sign-in error:', error);
-      });
+      }
+    } catch (error) {
+      setError('Invalid email or password.');
+      setTimeout(() => setError(''), 10000); // Clear error after 10 seconds
+      console.error('Error logging in:', error);
+    }
+  };
+
+  const handleSignUpRedirect = () => {
+    navigate('/signup');
   };
 
   return (
-    <div className="signin-container">
-      <div className='senta'>
-        <h2>Login</h2> 
-      </div>
-     
-      <form onSubmit={handleSignIn}>
-        <div>
-          <label>Email address:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter email"
-            required
-          />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter password"
-            required
-          />
-        </div>
-        <button className='bttn' type="submit">Submit</button>
+    <div className="form-container">
+      <h2>Login</h2>
+      <form>
+        <label htmlFor="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          placeholder="Enter your email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+
+        <label htmlFor="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          placeholder="Enter your password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        
+        {error && <p className="error-message">{error}</p>}
+        
+        <button type="button" onClick={handleLogin}>Login</button>
       </form>
-      <div className='end'>
-         <p>New user? <Link to="/register">Register Here</Link></p>
-      </div>
-     
+      <p>
+        New? <span className="signup-link" onClick={handleSignUpRedirect}>Sign Up Now</span>
+      </p>
     </div>
   );
-}
+};

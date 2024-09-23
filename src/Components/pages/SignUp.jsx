@@ -1,97 +1,81 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { auth, db } from './firebase'; 
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore"; 
-import "../pages/page.css"; 
+import { useNavigate } from 'react-router-dom';
+import { auth,db } from './firebase'; // Import Firebase auth and Firestore
+import { createUserWithEmailAndPassword } from 'firebase/auth'; // Import Firebase auth method
+import { setDoc, doc } from 'firebase/firestore'; // Import Firestore methods
+import './page.css'; // Import the CSS file for styling
 
-export function SignUp() {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+export const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  // Define the host email
-  const HOST_EMAIL = "host@gmail.com";  // Replace with your desired host email
+  const handleSignUp = async () => {
+    if (!email || !password) {
+      setError('Both fields are required.');
+      setTimeout(() => setError(''), 10000); // Clear error after 10 seconds
+      return;
+    }
 
-  const handleRegister = async (e) => {
-    e.preventDefault();
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setError('Invalid email format.');
+      setTimeout(() => setError(''), 10000); // Clear error after 10 seconds
+      return;
+    }
+
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      console.log('Registration successful:', user);
 
-      // Determine user type based on email
-      const userType = (email === HOST_EMAIL) ? "host" : "regular";
-
-      // Store user data in Firestore
-      await setDoc(doc(db, "users", user.uid), {
-        firstName,
-        lastName,
-        email,
-        userType,
+      // Save user data to Firestore
+      await setDoc(doc(db, 'users', user.uid), {
+        email: user.email,
+        userType: 'regular' // Default to 'regular'; change as needed
       });
 
-      navigate('/login');  // Redirect to login page after signup
+      navigate('/login'); // Redirect to login page after successful sign-up
     } catch (error) {
-      console.error('Registration error:', error);
+      setError('Error signing up. Please try again.');
+      setTimeout(() => setError(''), 10000); // Clear error after 10 seconds
+      console.error('Error signing up:', error);
     }
   };
 
+  const handleLoginRedirect = () => {
+    navigate('/login');
+  };
+
   return (
-    <div className="signin-container">
-      <div className='senta'>
-        <h2>Sign Up</h2> 
-      </div>
-     
-      <form onSubmit={handleRegister}>
-        <div>
-          <label>First name:</label>
-          <input
-            type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            placeholder="First name"
-            required
-          />
-        </div>
-        <div>
-          <label>Last name:</label>
-          <input
-            type="text"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            placeholder="Last name"
-            required
-          />
-        </div>
-        <div>
-          <label>Email address:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter email"
-            required
-          />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter password"
-            required
-          />
-        </div>
-        <button className='bttn' type="submit">Sign Up  </button>
+    <div className="form-container">
+      <h2>Sign Up</h2>
+      <form>
+        <label htmlFor="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          placeholder="Enter your email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+
+        <label htmlFor="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          placeholder="Enter your password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        
+        {error && <p className="error-message">{error}</p>}
+        
+        <button type="button" onClick={handleSignUp}>Sign Up</button>
       </form>
-      <div>
-        <p className='end'>Already registered? <Link to="/login">Login</Link></p> 
-      </div>
-     
+      <p>
+        Already have an account?{' '}
+        <span className="login-link" onClick={handleLoginRedirect}>Log In</span>
+      </p>
     </div>
   );
-}
+};
