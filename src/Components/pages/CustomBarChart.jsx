@@ -18,7 +18,7 @@ const data = [
   { name: 'Sep', income: 1600 },
   { name: 'Oct', income: 2000 },
   { name: 'Nov', income: 1000 },
-  { name: 'Dec', income: 500 },
+  { name: 'Dec', income: 8000 },
 ];
 
 const CustomBarChart = () => {

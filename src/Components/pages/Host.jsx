@@ -1,187 +1,95 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './page.css'; // Optional for styling
-import img1 from "../images/Rectangle-154.png";
-import img4 from "../images/Rectangle-163.png";
-import img6 from "../images/Rectangle-156.png";
 import CustomBarChart from './CustomBarChart'; // Import the chart component
+import img1 from "../images/Rectangle-154.png";
+import img2 from "../images/Rectangle-153.png";
+import img3 from "../images/image-55.png";
+import img4 from "../images/Rectangle-163.png";
+import img5 from "../images/image-57.png";
+import img6 from "../images/pixxx.jpeg";
 
-const Reviews = () => {
-  return (
-    <div className="rating-bar pad">
-      <h2>5.0 Overall Rating</h2>
-      <div className="rating-stars">
-        <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
-        <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
-        <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
-        <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
-        <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
-      </div>
-      <div className="rating-distribution">
-        <div className="rating-item">
-          <p>5 stars</p>
-          <div className="rating-bar-fill" style={{ width: '100%', backgroundColor: '#FF8C38' }}></div>
-        </div>
-        <div className="rating-item">
-          <p>4 stars</p>
-          <div className="rating-bar-fill" style={{ width: '75%', backgroundColor: '#FF8C38' }}></div>
-        </div>
-        <div className="rating-item">
-          <p>3 stars</p>
-          <div className="rating-bar-fill" style={{ width: '50%', backgroundColor: '#FF8C38' }}></div>
-        </div>
-        <div className="rating-item">
-          <p>2 stars</p>
-          <div className="rating-bar-fill" style={{ width: '25%', backgroundColor: '#FF8C38' }}></div>
-        </div>
-        <div className="rating-item">
-          <p>1 star</p>
-          <div className="rating-bar-fill" style={{ width: '0%', backgroundColor: '#FF8C38' }}></div>
-        </div>
-      </div>
-      
-      <div className="review-container">
-        <h2>Your Reviews (2)</h2>
-        <div className="review">
-          <div className="review-header">
-            <h4>Elliot</h4>
-            <h5> December 1, 2022</h5>
-            <div className="rating">
-              <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
-              <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
-              <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
-              <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
-              <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
-            </div>
-          </div>
-          <p className="review-text">
-            The Beach Bum is such an awesome van! Such a comfortable trip. We had it for 2 weeks and there was not a single issue. Super clean when we picked it up, and the host is very accommodating and understanding. Highly recommend!
-          </p>
-        </div>
-        <div className="review">
-          <div className="review-header">
-            <h4>Sandy </h4>
-            <h5>November 23, 2022</h5>
-            <div className="rating">
-              <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
-              <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
-              <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
-              <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
-              <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
-            </div>
-          </div>
-          <p className="review-text">
-            This is our third time using the Modest Explorer for our travels, and we love it! No complaints, absolutely perfect!
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const VanDashboard = ({ vans }) => {
-  const [selectedVan, setSelectedVan] = useState(null);
-  const [activeTab, setActiveTab] = useState('vans');
-
-  const handleVanClick = (van) => {
-    setSelectedVan(van);
-    setActiveTab('details');
-  };
-
-  const handleBack = () => {
-    setSelectedVan(null);
-    setActiveTab('vans');
-  };
-
-  const renderTabContent = () => {
-    if (activeTab === 'vans') {
-      return (
-        <div>
-          <h2 className="pad">Your Listed Vans</h2>
-          <ul className="pad">
-            {vans.map((van) => (
-              <li key={van.name} onClick={() => handleVanClick(van)}>
-                <img src={van.image} alt={van.name} style={{ width: '100px', height: 'auto' }} />
-                <div className="inf">
-                    <h3>{van.name}</h3>
-                <p>{van.price}</p>
-                </div>
-              
-              </li>
-            ))}
-          </ul>
-          <footer>
-            <p>&copy; 2022. # VANLIFE</p>
-          </footer>
-        </div>
-      );
-    }
-
-    if (selectedVan) {
-      return (
-        <div className='pad'>
-          <button onClick={handleBack}>Back to Vans</button>
-          <div>
-            <h2>{selectedVan.name}</h2>
-            <img src={selectedVan.image} alt={selectedVan.name} style={{ width: '300px', height: 'auto' }} />
-            <div className='tab'>
-              <button onClick={() => setActiveTab('pricing')}>Pricing</button>
-              <button onClick={() => setActiveTab('details')}>Details</button>
-              <button onClick={() => setActiveTab('photos')}>Photos</button>
-            </div>
-            {activeTab === 'pricing' && <div><h3>Pricing</h3><p>{selectedVan.price}</p></div>}
-            {activeTab === 'details' && <div><h3>Details</h3><p>{selectedVan.details}</p></div>}
-            {activeTab === 'photos' && (
-              <div>
-                <h3>Photos</h3>
-                {selectedVan.photos.map((photo, index) => (
-                  <img key={index} src={photo} alt={`Photo ${index + 1}`} style={{ width: '100px', height: 'auto' }} />
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-      );
-    }
-
-    return null;
-  };
-
-  return <div>{renderTabContent()}</div>;
-};
-
-export const Host = () => {
+const Host = () => {
+  const [vans, setVans] = useState([]);
   const [activeTab, setActiveTab] = useState('Dashboard');
+  const [reviews, setReviews] = useState([]);
 
-  const handleDetailsClick = () => {
-    setActiveTab('Income');
+  // Fetch vans data and reviews when component mounts
+  useEffect(() => {
+    fetch('/api/vans')  // Replace with your API URL
+      .then((response) => response.json())
+      .then((data) => setVans(data))
+      .catch((error) => console.error('Error fetching vans:', error));
+
+    fetch('/api/reviews')  // Replace with your API URL for reviews
+      .then((response) => response.json())
+      .then((data) => setReviews(data))
+      .catch((error) => console.error('Error fetching reviews:', error));
+  }, []);
+
+  // Handle deleting a van
+  const handleDelete = (vanId) => {
+    fetch(`/api/vans/${vanId}`, {  // Replace with your API URL for delete
+      method: 'DELETE',
+    })
+      .then((response) => response.json())
+      .then(() => {
+        setVans(vans.filter((van) => van.id !== vanId));  // Remove deleted van from state
+      })
+      .catch((error) => console.error('Error deleting van:', error));
   };
 
-  const vans = [
-    {
-      name: 'Modest Explorer',
-      price: '$60/day',
-      image: img1,
-      details: 'A great van for exploring.',
-      photos: [img1]
-    },
-    {
-      name: 'Beach Bum',
-      price: '$80/day',
-      image: img4,
-      details: 'Perfect for beach trips.',
-      photos: [img4]
-    },
-    {
-      name: 'Green Wonder',
-      price: '$70/day',
-      image: img6,
-      details: 'Ideal for nature adventures.',
-      photos: [img6]
-    }
-  ];
+  // Handle adding a new van
+  const handleAddVan = (newVan) => {
+    fetch('/api/vans', {  // Replace with your API URL for add
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newVan),
+    })
+      .then((response) => response.json())
+      .then((addedVan) => {
+        setVans([...vans, addedVan]);  // Add new van to the state
+      })
+      .catch((error) => console.error('Error adding van:', error));
+  };
+
+  // Handle updating a van
+  const handleUpdateVan = (updatedVan) => {
+    fetch(`/api/vans/${updatedVan.id}`, {  // Replace with your API URL for update
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedVan),
+    })
+      .then((response) => response.json())
+      .then(() => {
+        setVans(vans.map((van) => (van.id === updatedVan.id ? updatedVan : van)));  // Update the van in the state
+      })
+      .catch((error) => console.error('Error updating van:', error));
+  };
 
   const renderContent = () => {
     switch (activeTab) {
+      case 'Dashboard':
+        return (
+          <div>
+            <h2>Welcome!</h2>
+            <h3>Your Listed Vans</h3>
+            <ul>
+              {vans.map((van) => (
+                <li key={van.id}>
+                  <img src={van.image} alt={van.name} style={{ width: '100px' }} />
+                  <h4>{van.name}</h4>
+                  <p>{van.price}</p>
+                  <button onClick={() => handleDelete(van.id)}>Delete</button>
+                  <button onClick={() => setActiveTab('Van')}>Edit</button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        );
       case 'Income':
         return (
           <div className="income-container pa">
@@ -211,101 +119,64 @@ export const Host = () => {
           </div>
         );
       case 'Reviews':
-        return <Reviews />;
+        return (
+          <div className="rating-bar pad">
+            <h2>5.0 Overall Rating</h2>
+            <div className="rating-stars">
+              <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
+              <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
+              <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
+              <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
+              <span className="star"><p className='fa'><i className="fa-solid fa-star"></i></p></span>
+            </div>
+            <div className="review-container">
+              <h2>Your Reviews</h2>
+              {reviews.map((review) => (
+                <div className="review" key={review.id}>
+                  <div className="review-header">
+                    <h4>{review.author}</h4>
+                    <h5>{review.date}</h5>
+                    <div className="rating">
+                      {[...Array(5)].map((_, index) => (
+                        <span key={index} className="star">
+                          <p className="fa"><i className={`fa-solid fa-star ${index < review.rating ? 'filled' : ''}`}></i></p>
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <p className="review-text">{review.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
       case 'Van':
-        return <VanDashboard vans={vans} />;
-      case 'Dashboard':
         return (
           <div>
-            <div className="dash1">
-              <div className="pad">
-                <h2>Welcome!</h2>
-                <p>Income last 30 days</p>
-                <h1>$2,354</h1>
-              </div>
-              <div className="pad">
-                <p onClick={handleDetailsClick} style={{ cursor: 'pointer', color: 'black' }}>
-                  Details
-                </p>
-              </div>
-            </div>
-
-            <div className="dash2">
-              <div className="pad">
-                <h3>Review score</h3>
-                <p className="fa"><i className="fa-solid fa-star"></i> </p>4.5/5
-              </div>
-              <div className="pad">
-                <p onClick={handleDetailsClick} style={{ cursor: 'pointer', color: 'black' }}>
-                  Details
-                </p>
-              </div>
-            </div>
-
-            <div className="dash3">
-              <h2 className="pad">Your Listed Vans</h2>
-              <ul className="pad">
-                {vans.map((van) => (
-                  <li key={van.name} className="ten">
-                    <div className="nine">
-                      <div>
-                        <img src={van.image} alt={van.name} style={{ width: '100px', height: 'auto' }} />
-                      </div>
-                      <div className='inf'>
-                         <h3>{van.name}</h3>
-                      <p>{van.price}</p>
-                      </div>
-                     
-                    </div>
-                    <div>
-                      <button className="edi" onClick={() => setActiveTab('Van')}>Edit</button>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <footer>
-              <p>&copy; 2022. # VANLIFE</p>
-            </footer>
+            <h2>Edit Van</h2>
+            <ul>
+              {vans.map((van) => (
+                <li key={van.id}>
+                  <h4>{van.name}</h4>
+                  <p>{van.price}</p>
+                  {/* Edit Van form goes here */}
+                </li>
+              ))}
+            </ul>
           </div>
         );
       default:
-        return (
-          <div>
-            <h2>Dashboard</h2>
-            <p>This is the Dashboard tab content.</p>
-          </div>
-        );
+        return <p>Select a tab to view its content.</p>;
     }
   };
 
   return (
     <div className="tabs-container">
       <div className="tabs">
-        <button
-          className={activeTab === 'Dashboard' ? 'active' : ''}
-          onClick={() => setActiveTab('Dashboard')}
-        >
-          Dashboard
-        </button>
-        <button
-          className={activeTab === 'Income' ? 'active' : ''}
-          onClick={() => setActiveTab('Income')}
-        >
-          Income
-        </button>
-        <button
-          className={activeTab === 'Reviews' ? 'active' : ''}
-          onClick={() => setActiveTab('Reviews')}
-        >
-          Reviews
-        </button>
-        <button
-          className={activeTab === 'Van' ? 'active' : ''}
-          onClick={() => setActiveTab('Van')}
-        >
-          Vans
-        </button>
+        <button onClick={() => setActiveTab('Dashboard')}>Dashboard</button>
+        <button onClick={() => setActiveTab('Income')}>Income</button>
+        <button onClick={() => setActiveTab('Reviews')}>Reviews</button>
+        <button onClick={() => setActiveTab('Van')}>Vans</button>
       </div>
       <div className="tab-content">
         {renderContent()}
@@ -314,4 +185,4 @@ export const Host = () => {
   );
 };
 
-
+export default Host;

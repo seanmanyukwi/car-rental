@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 import { Navbar } from "./Components/Navbar";
-import { Home, About, Vans, Host } from "./Components/pages";
+import { Home, About, Vans } from "./Components/pages";
+import Host from './Components/pages/Host';
 import { Login } from "./Components/pages/Login";
 import { SignUp } from "./Components/pages/SignUp";
 import { auth, db } from './Components/pages/firebase'; // Import Firebase auth and Firestore
