@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './page.css'; // Optional for styling
 import CustomBarChart from './CustomBarChart'; // Import the chart component
-import img1 from "../images/Rectangle-154.png";
-import img2 from "../images/Rectangle-153.png";
-import img3 from "../images/image-55.png";
-import img4 from "../images/Rectangle-163.png";
-import img5 from "../images/image-57.png";
-import img6 from "../images/pixxx.jpeg";
+
 
 const Host = () => {
   const [vans, setVans] = useState([]);
@@ -15,12 +10,12 @@ const Host = () => {
 
   // Fetch vans data and reviews when component mounts
   useEffect(() => {
-    fetch('/api/vans')  // Replace with your API URL
+    fetch('http://localhost:3000/api/vans')  // Replace with your API URL
       .then((response) => response.json())
       .then((data) => setVans(data))
       .catch((error) => console.error('Error fetching vans:', error));
 
-    fetch('/api/reviews')  // Replace with your API URL for reviews
+    fetch('http://localhost:3000/api/test')  // Replace with your API URL for reviews
       .then((response) => response.json())
       .then((data) => setReviews(data))
       .catch((error) => console.error('Error fetching reviews:', error));
@@ -78,15 +73,15 @@ const Host = () => {
             <h2>Welcome!</h2>
             <h3>Your Listed Vans</h3>
             <ul>
-              {vans.map((van) => (
-                <li key={van.id}>
-                  <img src={van.image} alt={van.name} style={{ width: '100px' }} />
-                  <h4>{van.name}</h4>
-                  <p>{van.price}</p>
-                  <button onClick={() => handleDelete(van.id)}>Delete</button>
-                  <button onClick={() => setActiveTab('Van')}>Edit</button>
-                </li>
-              ))}
+            {vans.map((van) => (
+  <li key={van._id}> {/* Use _id instead of id */}
+    <img src={van.image} alt={van.name} style={{ width: '100px' }} />
+    <h4>{van.name}</h4>
+    <p>{van.price}</p>
+    <button onClick={() => handleDelete(van._id)}>Delete</button> {/* Use _id */}
+  </li>
+))}
+
             </ul>
           </div>
         );
